@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Chat Bot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f8f8;
+        }
+
+        /* Кнопка открытия чата */
+        .chat-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: red;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        /* Окно чата */
+        .chat-box {
+            width: 300px;
+            height: 400px;
+            background: white;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+            display: none;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background: red;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin: 8px 0;
+            padding: 8px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+
+        .user {
+            background: #d1e7ff;
+            margin-left: auto;
+        }
+
+        .bot {
+            background: #eee;
+        }
+
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+        }
+
+        .chat-input button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-btn" onclick="toggleChat()">💬</div>
+
+<div class="chat-box" id="chatBox">
+    <div class="chat-header">Pizza Support</div>
+
+    <div class="chat-messages" id="messages">
+        <div class="message bot">Здравствуйте! Чем могу помочь?</div>
+    </div>
+
+    <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Введите сообщение...">
+        <button onclick="sendMessage()">Отправить</button>
+    </div>
+</div>
+
+<script>
+    function toggleChat() {
+        const chatBox = document.getElementById("chatBox");
+        chatBox.style.display =
+            chatBox.style.display === "flex" ? "none" : "flex";
+    }
+
+    function sendMessage() {
+        const input = document.getElementById("userInput");
+        const messages = document.getElementById("messages");
+
+        if (input.value.trim() === "") return;
+
+        // сообщение пользователя
+        const userMsg = document.createElement("div");
+        userMsg.className = "message user";
+        userMsg.textContent = input.value;
+        messages.appendChild(userMsg);
+
+        let userText = input.value.toLowerCase();
+
+        input.value = "";
+
+        // автоответ бота
+        setTimeout(() => {
+            const botMsg = document.createElement("div");
+            botMsg.className = "message bot";
+
+            if (userText.includes("меню")) {
+                botMsg.textContent = "Дар менюи мо имруз питса Маргарита, Пепперони и 4 сыра.";
+            } 
+            else if (userText.includes("дастраскуни")) {
+                botMsg.textContent = "Дастрасткунии дар доҳили шаҳр аз 30-40 дақиқа.";
+            } 
+            else if (userText.includes("нарх")) {
+                botMsg.textContent = "Питсаҳо аз 50 то 120 сомони.";
+            }
+            else if (userText.includes("суроға")) {
+                botMsg.textContent = "Суроғаи мо дар шаҳри Хуҷанд";
+            } 
+            else {
+                botMsg.textContent = "Ташаккур барои паёматон! Оператори мо бо шумо тамос хоҳад гирифт.";
+            }
+
+            messages.appendChild(botMsg);
+            messages.scrollTop = messages.scrollHeight;
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Студенты</title>
+</head>
+<body>
+
+    <h1>Список студентов</h1>
+    <ul id="students"></ul>
+
+    <script>
+        let students = [
+            "Али",
+            "Саид",
+            "Рустам",
+            "Фирдавс"
+        ];
+
+        let result = "";
+
+        for(let i = 0; i < students.length; i++) {
+            result += `<li>${students[i]}</li>`;
+        }
+
+        document.getElementById("students").innerHTML = result;
+    </script>
+
+</body>
+</html>
